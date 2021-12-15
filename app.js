@@ -3,12 +3,11 @@ const express=require('express')
 const app=express()
 const port=process.env.PORT||3000
 const cors=require('cors')
-const optionsCORS={
-    origin:'https://online-organizer.herokuapp.com'
+const {response} = require("express");
 
-}
-app.use(cors(optionsCORS))
+
 app.get('/', (req,res)=>{
+    response.setHeader('Access-Control-Allow_Origin','https://online-organizer.herokuapp.com')
     res.send('<h1>Welcome to server of organizer:)</h1>')
 })
 

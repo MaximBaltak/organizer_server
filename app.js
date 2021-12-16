@@ -9,7 +9,7 @@ app.use((req,res,next)=>{
     res.header("Access-Control-Allow-Origin", "*");
     next()
 })
-app.use('/api/auth',authRouter)
+app.use('/auth',authRouter)
 
 app.get('/', (req,res)=>{
     res.send('<h1>Welcome to server of organizer:)</h1>')

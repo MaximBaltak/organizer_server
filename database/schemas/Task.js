@@ -6,10 +6,10 @@ const Task=new Schema({
         required:true,
     },
     dateStart:{
-        type:Date,
+        type:String,
     },
     dateEnd:{
-        type:Date,
+        type:String,
     },
     day:{
         text:{type:String},

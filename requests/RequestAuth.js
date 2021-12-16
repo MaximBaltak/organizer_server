@@ -16,7 +16,7 @@ class RequestAuth {
     async signUp(req, res) {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            res.status(400).json({message: 'password not valid', errors})
+            res.status(400).json({message: 'data not valid', errors})
         } else {
             const {username, password} = req.body
             username.trim()

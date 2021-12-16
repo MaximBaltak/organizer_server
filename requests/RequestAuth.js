@@ -35,7 +35,7 @@ class RequestAuth {
                     const token = generateToken(username, password, secretKey)
                     res.status(200).json({message: 'authorization is successful', token, id: data[0]._id.toString()})
                 } catch (e) {
-                    res.status(500).json({message: 'Error in server'})
+                    res.status(500).json({message: 'Error of server'})
                 }
             }
         }

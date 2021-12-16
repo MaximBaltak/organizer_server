@@ -1,8 +1,6 @@
-const fs =require('fs')
 const express=require('express')
 const app=express()
 const port=process.env.PORT||3000
-const cors=require('cors')
 
 app.use((req,res,next)=>{
     res.header("Access-Control-Allow-Origin", "*");

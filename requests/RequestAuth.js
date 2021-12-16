@@ -16,14 +16,14 @@ class RequestAuth {
     async signUp(req, res) {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            res.status(401).json({message: 'password not valid', errors})
+            res.status(400).json({message: 'password not valid', errors})
         } else {
             const {username, password} = req.body
             username.trim()
             const hashPassword = bcrypt.hashSync(password, 4)
             const users = await User.find({username, hashPassword})
             if (users.length > 0) {
-                res.status(402).json({message: 'the user already exists'})
+                res.status(400).json({message: 'the user already exists'})
             } else {
                 try {
                     const user = await new User({

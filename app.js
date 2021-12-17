@@ -1,14 +1,13 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const authRouter = require('./routes/mainPage')
+const config=require('./config.json')
+const CORS=require('./middlewares/middlewareCORS')
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || +config.port
 
 app.use(express.json())
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    next()
-})
+app.use(CORS)
 app.use('/auth', authRouter)
 
 app.get('/', (req, res) => {
@@ -17,7 +16,7 @@ app.get('/', (req, res) => {
 
 const start = async () => {
     try {
-        await mongoose.connect("mongodb+srv://maxim:maksim+100500@cluster0.qfqme.mongodb.net/organizer?retryWrites=true&w=majority")
+        await mongoose.connect(config.DatabaseUrl)
         app.listen(port, () => {
             console.log('server start')
         })

@@ -78,7 +78,7 @@ class RequestAuth {
                     return res.status(400).json({message: 'user not found'})
                 }
             } catch (e) {
-                res.status(500).json({message: 'Error of server'})
+                res.status(500).json({message: 'error of server'})
             }
         }
     }

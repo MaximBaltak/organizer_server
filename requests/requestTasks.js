@@ -1,0 +1,93 @@
+const Task = require('./../database/schemas/Task')
+
+class RequestTasks {
+    async getTasks(req, res) {
+        try {
+            const userId = req.query?.userId
+            if (!userId) {
+                return res.status(400).json({message: 'no user id'})
+            }
+            const tasks = await Task.find({userId})
+            if (tasks.length > 0) {
+                Array.from(tasks).forEach(task => {
+                    task._id.toString()
+                })
+            }
+            return res.status(200).json({tasks: tasks})
+        } catch (e) {
+            res.status(500).json({message: 'error in server'})
+        }
+    }
+
+    async addTask(req, res) {
+        if (!req.body) {
+            return res.status(400).json({message: 'no data available'})
+        }
+        try {
+            const task = await new Task({
+                userId: req.body.userId,
+                title: req.body.title,
+                dateStart: req.body.dateStart,
+                dateEnd: req.body.dateEnd,
+                day: req.body.day,
+                state: req.body.state,
+                border: req.body.border,
+                check: req.body.check,
+            })
+            await task.save()
+            return res.status(200).json({message: 'added task'})
+        } catch (e) {
+            console.log(e)
+            return res.status(500).json({message: 'error in server'})
+        }
+    }
+
+    async changedTask(req, res) {
+        const taskId = req.query?.taskId
+        if (!taskId) {
+            return res.status(400).json({message: 'no task id'})
+        }
+        if (!req.body) {
+            return res.status(400).json({message: 'no data available'})
+        }
+        try {
+            await Task.updateOne({_id: taskId}, {
+                $set: {
+                    check: req.body.check,
+                    "state.color": req.body.color,
+                    "state.text": req.body.text
+                }
+            })
+            return res.status(200).json({message: 'updated task'})
+        } catch (e) {
+            return res.status(400).json({message: 'there is no task with such id'})
+        }
+    }
+
+    async deleteTask(req, res) {
+        const {userId, taskId} = req.query
+        if (!userId) {
+            return res.status(400).json({message: 'no user id'})
+        }
+        if (!taskId) {
+            try {
+                await Task.deleteMany({userId})
+                return res.status(200).json({message: 'deleted all tasks'})
+            } catch (e) {
+                console.log(e)
+                return res.status(400).json({message: 'there is no task with such userId'})
+            }
+        } else {
+            try {
+                await Task.deleteOne({_id: taskId, userId})
+                return res.status(200).json({message: 'deleted task'})
+            } catch (e) {
+                console.log(e)
+                return res.status(400).json({message: 'there is no task with such userId or taskId'})
+            }
+        }
+
+    }
+}
+
+module.exports = new RequestTasks()

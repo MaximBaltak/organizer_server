@@ -19,8 +19,8 @@ const Task = new Schema({
         text: {type: String},
         color: {type: String}
     },
-    border: {type: String},
-    check: {type: Boolean},
+    border: {type: String, required: true},
+    check: {type: Boolean, required: true},
 
 })
 module.exports = model('Task', Task)

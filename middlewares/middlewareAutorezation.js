@@ -9,8 +9,12 @@ module.exports = (req, res, next) => {
         if (!token) {
             return res.status(403).json({message: 'the user is not logged in'})
         }
-        req.user = jwt.verify(token, config.secretKey)
-        next()
+        try {
+            req.user = jwt.verify(token, config.secretKey)
+            next()
+        } catch (e) {
+            return res.status(403).json({message: 'the user is not logged in'})
+        }
     } catch (e) {
         console.log(e)
         return res.status(500).json({message: 'error in server'})

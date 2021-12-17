@@ -4,6 +4,6 @@ const requestTasks = require('./../requests/requestTasks')
 const router = new Router()
 router.get('/', autorezation, requestTasks.getTasks)
 router.post('/', autorezation, requestTasks.addTask)
-router.post('/', autorezation)
-router.get('/', autorezation)
+router.post('/update', autorezation,requestTasks.changedTask)
+router.get('/delete', autorezation,requestTasks.deleteTask)
 module.exports = router

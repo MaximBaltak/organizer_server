@@ -1,4 +1,5 @@
 const Task = require('./../database/schemas/Task')
+
 class RequestTasks {
     async getTasks(req, res) {
         try {
@@ -39,6 +40,53 @@ class RequestTasks {
             console.log(e)
             return res.status(500).json({message: 'error in server'})
         }
+    }
+
+    async changedTask(req, res) {
+        const taskId = req.query?.taskId
+        if (!taskId) {
+            return res.status(400).json({message: 'no task id'})
+        }
+        if (!req.body) {
+            return res.status(400).json({message: 'no data available'})
+        }
+        try {
+            await Task.updateOne({_id: taskId}, {
+                $set: {
+                    check: req.body.check,
+                    "state.color": req.body.color,
+                    "state.text": req.body.text
+                }
+            })
+            return res.status(200).json({message: 'updated task'})
+        } catch (e) {
+            return res.status(400).json({message: 'there is no task with such id'})
+        }
+    }
+
+    async deleteTask(req, res) {
+        const {userId, taskId} = req.query
+        if (!userId) {
+            return res.status(400).json({message: 'no user id'})
+        }
+        if (!taskId) {
+            try {
+                await Task.deleteMany({userId})
+                return res.status(200).json({message: 'deleted all tasks'})
+            } catch (e) {
+                console.log(e)
+                return res.status(400).json({message: 'there is no task with such userId'})
+            }
+        } else {
+            try {
+                await Task.deleteOne({_id: taskId, userId})
+                return res.status(200).json({message: 'deleted task'})
+            } catch (e) {
+                console.log(e)
+                return res.status(400).json({message: 'there is no task with such userId or taskId'})
+            }
+        }
+
     }
 }
 

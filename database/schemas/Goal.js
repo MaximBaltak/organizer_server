@@ -19,8 +19,8 @@ const Goal = new Schema({
         color: {type: String}
     },
     todo: [{ref: 'TaskFormGoal'}],
-    percent: Number,
-    colorPercent: String,
-    borderColor: String,
+    percent: {type:Number,required:true},
+    colorPercent:{type:String,required:true},
+    borderColor:  {type:String,required:true},
 })
 module.exports = model('Goal', Goal)

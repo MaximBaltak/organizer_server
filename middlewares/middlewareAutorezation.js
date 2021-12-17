@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
         next()
     }
     try {
-        const token = req.headers.authorization?.split(' ')[1]
+        const token = req.headers?.authorization?.split(' ')[1]
         if (!token) {
             return res.status(403).json({message: 'the user is not logged in'})
         }
@@ -13,6 +13,6 @@ module.exports = (req, res, next) => {
         next()
     } catch (e) {
         console.log(e)
-        return res.status(403).json({message: 'the user is not logged in'})
+        return res.status(500).json({message: 'error in server'})
     }
 }

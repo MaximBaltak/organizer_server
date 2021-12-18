@@ -1,5 +1,6 @@
 const {Schema, model} = require('mongoose')
 const Goal = new Schema({
+    userId:{type:String,required:true,unique:false},
     title: {
         type: String,
         required: true,
@@ -8,17 +9,24 @@ const Goal = new Schema({
         type: String,
     },
     dateEnd: {
-        type: Date,
+        type: String,
     },
     day: {
         text: {type: String},
         color: {type: String}
     },
     state: {
-        text: {type: String},
-        color: {type: String}
+        text: {type: String,required:true},
+        color: {type: String,required:true}
     },
-    todo: [{ref: 'TaskFormGoal'}],
+    tasks: [{
+        title: {type:String,required:true,},
+        check: {type:Boolean,required:true},
+        color: {type:String,required:true},
+        showButton: {type:Boolean,required:true},
+        borderColor: {type:String,required:true},
+    }
+    ],
     percent: {type:Number,required:true},
     colorPercent:{type:String,required:true},
     borderColor:  {type:String,required:true},

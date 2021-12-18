@@ -5,7 +5,7 @@ const checkUser= async (dataUser)=>{
         const user=await User.findOne({username:dataUser.username})
         if(user){
             if(!bcrypt.compareSync(dataUser.user.password,user.password)){
-                return 400
+                return 403
             }
         }
         return 200

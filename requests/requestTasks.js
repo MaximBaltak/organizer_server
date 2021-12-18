@@ -9,7 +9,7 @@ class RequestTasks {
                 case 403:
                     return res.status(status).json({message: 'the user is not logged in'})
                 case 500:
-                    return res.status(status).json({message: 'error in server'})
+                    return res.status(status).json({message: 'error of server'})
                 default:
                     break
             }
@@ -25,7 +25,7 @@ class RequestTasks {
             }
             return res.status(200).json({tasks: tasks})
         } catch (e) {
-            res.status(500).json({message: 'error in server'})
+            res.status(500).json({message: 'error of server'})
         }
     }
 
@@ -35,7 +35,7 @@ class RequestTasks {
             case 403:
                 return res.status(status).json({message: 'the user is not logged in'})
             case 500:
-                return res.status(status).json({message: 'error in server'})
+                return res.status(status).json({message: 'error of server'})
             default:
                 break
         }
@@ -57,7 +57,7 @@ class RequestTasks {
             return res.status(200).json({message: 'added task'})
         } catch (e) {
             console.log(e)
-            return res.status(500).json({message: 'error in server'})
+            return res.status(500).json({message: 'error of server'})
         }
     }
 
@@ -67,7 +67,7 @@ class RequestTasks {
             case 403:
                 return res.status(status).json({message: 'the user is not logged in'})
             case 500:
-                return res.status(status).json({message: 'error in server'})
+                return res.status(status).json({message: 'error of server'})
             default:
                 break
         }
@@ -98,7 +98,7 @@ class RequestTasks {
             case 403:
                 return res.status(status).json({message: 'the user is not logged in'})
             case 500:
-                return res.status(status).json({message: 'error in server'})
+                return res.status(status).json({message: 'error of server'})
             default:
                 break
         }

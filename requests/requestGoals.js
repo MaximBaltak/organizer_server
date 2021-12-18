@@ -75,7 +75,10 @@ class RequestGoals {
         }
         const goalId = req.query?.goalId
         const taskId = req.query?.taskId
-        if (!goalId||!taskId) {
+        if (!goalId) {
+            return res.status(400).json({message: 'no goal or goal id'})
+        }
+        if (!taskId) {
             return res.status(400).json({message: 'no goal or task id'})
         }
         if (!req.body) {
@@ -93,9 +96,9 @@ class RequestGoals {
                     "tasks.$.borderColor": req.body.task.borderColor,
                 }
             })
-            return res.status(200).json({message: 'updated Goal'})
+            return res.status(200).json({message: 'updated goal'})
         } catch (e) {
-            return res.status(400).json({message: 'there is no Goal with such id'})
+            return res.status(400).json({message: 'there is no goal with such id'})
         }
     }
 

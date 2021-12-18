@@ -24,9 +24,6 @@ class RequestAuth {
             const hashPassword = bcrypt.hashSync(filterPassword, 4)
             const user = await User.findOne({username: filterUsername})
             if (user) {
-                if (bcrypt.compareSync(filterPassword, user.password)) {
-                    return res.status(400).json({message: 'the user already exists'})
-                }
                 return res.status(400).json({message: 'the user already exists'})
             } else {
                 try {

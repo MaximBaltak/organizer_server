@@ -6,7 +6,7 @@ class RequestTasks {
         try {
             const status = await checkUser(req.user)
             switch (status) {
-                case 400:
+                case 403:
                     return res.status(status).json({message: 'the user is not logged in'})
                 case 500:
                     return res.status(status).json({message: 'error in server'})
@@ -32,7 +32,7 @@ class RequestTasks {
     async addTask(req, res) {
         const status = await checkUser(req.user)
         switch (status) {
-            case 400:
+            case 403:
                 return res.status(status).json({message: 'the user is not logged in'})
             case 500:
                 return res.status(status).json({message: 'error in server'})
@@ -64,7 +64,7 @@ class RequestTasks {
     async changedTask(req, res) {
         const status = await checkUser(req.user)
         switch (status) {
-            case 400:
+            case 403:
                 return res.status(status).json({message: 'the user is not logged in'})
             case 500:
                 return res.status(status).json({message: 'error in server'})
@@ -95,7 +95,7 @@ class RequestTasks {
     async deleteTask(req, res) {
         const status = await checkUser(req.user)
         switch (status) {
-            case 400:
+            case 403:
                 return res.status(status).json({message: 'the user is not logged in'})
             case 500:
                 return res.status(status).json({message: 'error in server'})

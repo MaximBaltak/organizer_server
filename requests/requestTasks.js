@@ -112,7 +112,7 @@ class RequestTasks {
                 return res.status(200).json({message: 'deleted all tasks'})
             } catch (e) {
                 console.log(e)
-                return res.status(400).json({message: 'there is no task with such userId'})
+                return res.status(401).json({message: 'there is no task with such userId'})
             }
         } else {
             try {
@@ -120,7 +120,7 @@ class RequestTasks {
                 return res.status(200).json({message: 'deleted task'})
             } catch (e) {
                 console.log(e)
-                return res.status(400).json({message: 'there is no task with such userId or taskId'})
+                return res.status(401).json({message: 'there is no task with such userId or taskId'})
             }
         }
 

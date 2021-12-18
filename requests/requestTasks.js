@@ -1,8 +1,17 @@
 const Task = require('./../database/schemas/Task')
-
+const checkUser=require('./../middlewares/checkUser')
 class RequestTasks {
     async getTasks(req, res) {
         try {
+            const status=await checkUser(req.user)
+            switch (status){
+                case 400:
+                    return res.status(status).json({message:'the user is not logged in'})
+                case 500:
+                    return res.status(status).json({message:'error in server'})
+                default:
+                    break
+            }
             const userId = req.query?.userId
             if (!userId) {
                 return res.status(400).json({message: 'no user id'})
@@ -20,6 +29,15 @@ class RequestTasks {
     }
 
     async addTask(req, res) {
+        const status=await checkUser(req.user)
+        switch (status){
+            case 400:
+                return res.status(status).json({message:'the user is not logged in'})
+            case 500:
+                return res.status(status).json({message:'error in server'})
+            default:
+                break
+        }
         if (!req.body) {
             return res.status(400).json({message: 'no data available'})
         }
@@ -43,6 +61,15 @@ class RequestTasks {
     }
 
     async changedTask(req, res) {
+        const status=await checkUser(req.user)
+        switch (status){
+            case 400:
+                return res.status(status).json({message:'the user is not logged in'})
+            case 500:
+                return res.status(status).json({message:'error in server'})
+            default:
+                break
+        }
         const taskId = req.query?.taskId
         if (!taskId) {
             return res.status(400).json({message: 'no task id'})
@@ -65,6 +92,15 @@ class RequestTasks {
     }
 
     async deleteTask(req, res) {
+        const status=await checkUser(req.user)
+        switch (status){
+            case 400:
+                return res.status(status).json({message:'the user is not logged in'})
+            case 500:
+                return res.status(status).json({message:'error in server'})
+            default:
+                break
+        }
         const {userId, taskId} = req.query
         if (!userId) {
             return res.status(400).json({message: 'no user id'})

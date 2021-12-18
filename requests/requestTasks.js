@@ -1,14 +1,15 @@
 const Task = require('./../database/schemas/Task')
-const checkUser=require('./../middlewares/checkUser')
+const checkUser = require('./../middlewares/checkUser')
+
 class RequestTasks {
     async getTasks(req, res) {
         try {
-            const status=await checkUser(req.user)
-            switch (status){
+            const status = await checkUser(req.user)
+            switch (status) {
                 case 400:
-                    return res.status(status).json({message:'the user is not logged in'})
+                    return res.status(status).json({message: 'the user is not logged in'})
                 case 500:
-                    return res.status(status).json({message:'error in server'})
+                    return res.status(status).json({message: 'error in server'})
                 default:
                     break
             }
@@ -29,12 +30,12 @@ class RequestTasks {
     }
 
     async addTask(req, res) {
-        const status=await checkUser(req.user)
-        switch (status){
+        const status = await checkUser(req.user)
+        switch (status) {
             case 400:
-                return res.status(status).json({message:'the user is not logged in'})
+                return res.status(status).json({message: 'the user is not logged in'})
             case 500:
-                return res.status(status).json({message:'error in server'})
+                return res.status(status).json({message: 'error in server'})
             default:
                 break
         }
@@ -61,12 +62,12 @@ class RequestTasks {
     }
 
     async changedTask(req, res) {
-        const status=await checkUser(req.user)
-        switch (status){
+        const status = await checkUser(req.user)
+        switch (status) {
             case 400:
-                return res.status(status).json({message:'the user is not logged in'})
+                return res.status(status).json({message: 'the user is not logged in'})
             case 500:
-                return res.status(status).json({message:'error in server'})
+                return res.status(status).json({message: 'error in server'})
             default:
                 break
         }
@@ -92,12 +93,12 @@ class RequestTasks {
     }
 
     async deleteTask(req, res) {
-        const status=await checkUser(req.user)
-        switch (status){
+        const status = await checkUser(req.user)
+        switch (status) {
             case 400:
-                return res.status(status).json({message:'the user is not logged in'})
+                return res.status(status).json({message: 'the user is not logged in'})
             case 500:
-                return res.status(status).json({message:'error in server'})
+                return res.status(status).json({message: 'error in server'})
             default:
                 break
         }

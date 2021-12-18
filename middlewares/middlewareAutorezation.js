@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const config = require('./../config.json')
+require('dotenv').config()
 module.exports = (req, res, next) => {
     if (req.method === 'OPTIONS') {
         next()
@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
         if (!token) {
             return res.status(403).json({message: 'the user is not logged in'})
         }
-            jwt.verify(token, config.secretKey,(err,decode)=>{
+            jwt.verify(token, process.env.SECRET_KEY,(err,decode)=>{
                 if(err){
                     return res.status(402).json({message: 'invalid token'})
                 }

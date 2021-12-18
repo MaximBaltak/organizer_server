@@ -1,5 +1,0 @@
-{
-  "secretKey": "secretkey",
-  "DatabaseUrl": "mongodb+srv://maxim:maksim+100500@cluster0.qfqme.mongodb.net/organizer?retryWrites=true&w=majority",
-  "port": "3000"
-}

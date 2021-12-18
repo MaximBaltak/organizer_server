@@ -2,10 +2,10 @@ const express = require('express')
 const mongoose = require('mongoose')
 const authRouter = require('./routes/mainPage')
 const tasksRouter = require('./routes/tasksPage')
-const config=require('./config.json')
 const CORS=require('./middlewares/middlewareCORS')
+require('dotenv').config()
 const app = express()
-const port = process.env.PORT || +config.port
+const port = process.env.PORT || process.env.LOCAL_PORT
 
 app.use(express.json())
 app.use(CORS)
@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 const start = async () => {
     try {
-        await mongoose.connect(config.DatabaseUrl)
+        await mongoose.connect(process.env.DB_CONNECT)
         app.listen(port, () => {
             console.log('server start')
         })

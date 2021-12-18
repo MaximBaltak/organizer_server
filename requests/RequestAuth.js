@@ -2,7 +2,7 @@ const User = require('./../database/schemas/User')
 const {validationResult} = require('express-validator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const {secretKey} = require('./../config.json')
+require('dotenv').config()
 
 const generateToken = (login, password, secretKey) => {
     const payload = {
@@ -33,7 +33,7 @@ class RequestAuth {
                     })
                     await user.save()
                     const data = await User.find().sort({$natural: -1}).limit(1)
-                    const token = generateToken(filterUsername, filterPassword, secretKey)
+                    const token = generateToken(filterUsername, filterPassword, process.env.SECRET_KEY)
                     return res.status(200).json({
                         message: 'authorization is successful',
                         token,
@@ -49,7 +49,7 @@ class RequestAuth {
     async signIn(req, res) {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            res.status(400).json({message: ' data is not valid ', errors:errors.errors})
+            res.status(400).json({message: 'data is not valid', errors:errors.errors})
         } else {
             const {username, password} = req.body
             let filterUsername = username.trim()
@@ -65,7 +65,7 @@ class RequestAuth {
                     }
                 })
                 if (findUserID) {
-                    const token = generateToken(filterUsername, filterPassword, secretKey)
+                    const token = generateToken(filterUsername, filterPassword, process.env.SECRET_KEY)
                     return res.status(200).json({
                         message: 'authorization is successful',
                         token,

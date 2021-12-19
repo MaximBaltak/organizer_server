@@ -1,7 +1,7 @@
 const Router=require('express')
 const router=new Router()
-router.get('/user')
-router.post('/user')
-router.post('/user')
-router.post('/user')
+router.get('/')
+router.put('/password')
+router.put('/login')
+router.delete('/')
 module.exports=router

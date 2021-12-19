@@ -4,6 +4,6 @@ const requestGoals=require('./../requests/requestGoals')
 const router=new Router()
 router.get('/',authorization,requestGoals.getGoal)
 router.post('/',authorization,requestGoals.addGoal)
-router.post('/update',authorization,requestGoals.changedGoal)
-router.get('/delete',authorization,requestGoals.deleteGoal)
+router.put('/update',authorization,requestGoals.changedGoal)
+router.delete('/delete',authorization,requestGoals.deleteGoal)
 module.exports=router

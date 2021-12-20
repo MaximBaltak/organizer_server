@@ -10,5 +10,9 @@ const User = new Schema({
         unique: true,
         required: true,
     },
+    created:{
+        type:Date,
+        required:true
+    }
 })
 module.exports = model('User', User)

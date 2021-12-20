@@ -3,16 +3,18 @@ const mongoose = require('mongoose')
 const authRouter = require('./routes/mainPage')
 const tasksRouter = require('./routes/tasksPage')
 const goalsRouter = require('./routes/goalsPage')
+const profileRouter=require('./routes/profilePage')
 const CORS=require('./middlewares/middlewareCORS')
 require('dotenv').config()
 const app = express()
-const port = process.env.PORT || process.env.LOCAL_PORT
+const port = process.env.PORT || 3000
 
 app.use(express.json())
 app.use(CORS)
 app.use('/auth', authRouter)
 app.use('/tasks', tasksRouter)
 app.use('/goals', goalsRouter)
+app.use('/user', profileRouter)
 
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to server of organizer:)</h1>')

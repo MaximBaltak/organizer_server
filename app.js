@@ -14,7 +14,8 @@ app.use(CORS)
 app.use('/auth', authRouter)
 app.use('/tasks', tasksRouter)
 app.use('/goals', goalsRouter)
-app.use('/user', profileRouter)
+app.use('/profile', profileRouter)
+
 
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to server of organizer:)</h1>')

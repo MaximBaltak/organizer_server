@@ -1,16 +1,8 @@
 const User = require('./../database/schemas/User')
 const {validationResult} = require('express-validator')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const generateToken=require('./../middlewares/generateToken')
 require('dotenv').config()
-
-const generateToken = (login, password, secretKey) => {
-    const payload = {
-        login,
-        password
-    }
-    return jwt.sign(payload, secretKey)
-}
 
 class RequestAuth {
     async signUp(req, res) {
@@ -29,7 +21,8 @@ class RequestAuth {
                 try {
                     const user = await new User({
                         username: filterUsername,
-                        password: hashPassword
+                        password: hashPassword,
+                        created: new Date().getTime()
                     })
                     await user.save()
                     const data = await User.find().sort({$natural: -1}).limit(1)
@@ -37,7 +30,7 @@ class RequestAuth {
                     return res.status(200).json({
                         message: 'authorization is successful',
                         token,
-                        id: data[0]._id.toString()
+                        id: data[0]._id
                     })
                 } catch (e) {
                     res.status(500).json({message: 'Error of server'})
@@ -56,20 +49,20 @@ class RequestAuth {
             let filterPassword = password.trim()
             try {
                 const users = await User.find()
-                let findUserID = ''
+                let findUser
                 Array.from(users).forEach(user => {
                     if (filterUsername === user.username) {
                         if (bcrypt.compareSync(filterPassword, user.password)) {
-                            findUserID = user._id.toString()
+                            findUser = user
                         }
                     }
                 })
-                if (findUserID) {
+                if (findUser) {
                     const token = generateToken(filterUsername, filterPassword, process.env.SECRET_KEY)
                     return res.status(200).json({
                         message: 'authorization is successful',
                         token,
-                        id: findUserID
+                        id: findUser._id
                     })
                 } else {
                     return res.status(400).json({message: 'user not found'})

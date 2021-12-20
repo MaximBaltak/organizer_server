@@ -8,8 +8,6 @@ class RequestGoals {
             switch (status) {
                 case 403:
                     return res.status(status).json({message: 'the user is not logged in'})
-                case 500:
-                    return res.status(status).json({message: 'error of server'})
                 default:
                     break
             }
@@ -34,8 +32,6 @@ class RequestGoals {
         switch (status) {
             case 403:
                 return res.status(status).json({message: 'the user is not logged in'})
-            case 500:
-                return res.status(status).json({message: 'error of server'})
             default:
                 break
         }
@@ -50,9 +46,9 @@ class RequestGoals {
                 dateEnd: req.body.dateEnd,
                 day: req.body.day,
                 state: req.body.state,
-                tasks:req.body.tasks,
+                tasks: req.body.tasks,
                 percent: req.body.percent,
-                colorPercent:req.body.colorPercent,
+                colorPercent: req.body.colorPercent,
                 borderColor: req.body.borderColor,
             })
             await goal.save()
@@ -68,8 +64,6 @@ class RequestGoals {
         switch (status) {
             case 403:
                 return res.status(status).json({message: 'the user is not logged in'})
-            case 500:
-                return res.status(status).json({message: 'error of server'})
             default:
                 break
         }
@@ -85,10 +79,10 @@ class RequestGoals {
             return res.status(400).json({message: 'no data available'})
         }
         try {
-            await Goal.updateOne({_id: goalId,tasks:{$elemMatch:{_id:taskId}}}, {
+            await Goal.updateOne({_id: goalId, tasks: {$elemMatch: {_id: taskId}}}, {
                 $set: {
                     percent: req.body.percent,
-                    colorPercent:req.body.colorPercent,
+                    colorPercent: req.body.colorPercent,
                     "state.color": req.body.state.color,
                     "state.text": req.body.state.text,
                     "tasks.$.check": req.body.task.check,
@@ -107,8 +101,6 @@ class RequestGoals {
         switch (status) {
             case 403:
                 return res.status(status).json({message: 'the user is not logged in'})
-            case 500:
-                return res.status(status).json({message: 'error of server'})
             default:
                 break
         }

@@ -8,8 +8,6 @@ class RequestTasks {
             switch (status) {
                 case 403:
                     return res.status(status).json({message: 'the user is not logged in'})
-                case 500:
-                    return res.status(status).json({message: 'error of server'})
                 default:
                     break
             }
@@ -34,8 +32,6 @@ class RequestTasks {
         switch (status) {
             case 403:
                 return res.status(status).json({message: 'the user is not logged in'})
-            case 500:
-                return res.status(status).json({message: 'error of server'})
             default:
                 break
         }
@@ -66,8 +62,6 @@ class RequestTasks {
         switch (status) {
             case 403:
                 return res.status(status).json({message: 'the user is not logged in'})
-            case 500:
-                return res.status(status).json({message: 'error of server'})
             default:
                 break
         }
@@ -97,8 +91,6 @@ class RequestTasks {
         switch (status) {
             case 403:
                 return res.status(status).json({message: 'the user is not logged in'})
-            case 500:
-                return res.status(status).json({message: 'error of server'})
             default:
                 break
         }

@@ -114,7 +114,7 @@ class RequestGoals {
                 return res.status(200).json({message: 'deleted all goals'})
             } catch (e) {
                 console.log(e)
-                return res.status(401).json({message: 'there is no goal with such userId'})
+                return res.status(400).json({message: 'there is no goal with such userId'})
             }
         } else {
             try {
@@ -122,7 +122,7 @@ class RequestGoals {
                 return res.status(200).json({message: 'deleted goal'})
             } catch (e) {
                 console.log(e)
-                return res.status(401).json({message: 'there is no task with such userId or goalId'})
+                return res.status(400).json({message: 'there is no task with such userId or goalId'})
             }
         }
 

@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
         }
             jwt.verify(token, process.env.SECRET_KEY,(err,decode)=>{
                 if(err){
-                    return res.status(402).json({message: 'invalid token'})
+                    return res.status(403).json({message: 'invalid token'})
                 }
                 req.user=decode
                console.log(decode)

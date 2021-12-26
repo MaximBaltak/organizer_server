@@ -46,8 +46,6 @@ const dayFunction=(task) => {
             task.state.text = textState
             task.state.color = colorState
             task.border = border
-        }else {
-            task.day=null
         }
 }
 

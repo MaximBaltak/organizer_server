@@ -66,7 +66,7 @@ class RequestTasks {
             const tasks = await Task.find({userId})
             if (tasks.length > 0) {
                 Array.from(tasks).forEach(task => {
-                   if(!task.check){
+                   if(!task.check&&task.dateEnd!==null&&task.dateStart!==null){
                        dayFunction(task)
                    }
                 })

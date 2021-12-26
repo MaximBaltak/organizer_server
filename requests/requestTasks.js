@@ -40,7 +40,7 @@ const dayFunction=(task) => {
         textState = 'В процессе'
         colorState = 'yellow'
     }
-        if (task.day) {
+        if (!task.day) {
             task.day.text = text
             task.day.color = color
             task.state.text = textState
@@ -66,7 +66,7 @@ class RequestTasks {
             const tasks = await Task.find({userId})
             if (tasks.length > 0) {
                 Array.from(tasks).forEach(task => {
-                   if(!task.check&&task.day){
+                   if(!task.check){
                        dayFunction(task)
                    }
                 })

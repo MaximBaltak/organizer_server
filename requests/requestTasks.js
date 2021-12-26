@@ -38,6 +38,7 @@ class RequestTasks {
         if (!req.body) {
             return res.status(400).json({message: 'no data available'})
         }
+        return res.status(400).json({message: res.body})
         try {
             const task = await new Task({
                 userId: req.body.userId,

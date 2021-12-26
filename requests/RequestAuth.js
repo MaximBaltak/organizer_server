@@ -41,6 +41,7 @@ class RequestAuth {
 
     async signIn(req, res) {
         const errors = validationResult(req)
+        console.log(req.body.username)
         if (!errors.isEmpty()) {
             res.status(400).json({message: 'data is not valid', errors:errors.errors})
         } else {

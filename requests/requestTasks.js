@@ -75,10 +75,10 @@ class RequestTasks {
         try {
             await Task.updateOne({_id: taskId}, {
                 $set: {
+                    "state.color": req.body.color,
+                    "state.text": req.body.text,
                     border:req.body.border,
                     check: req.body.check,
-                    "state.color": req.body.color,
-                    "state.text": req.body.text
                 }
             })
             return res.status(200).json({message: 'updated task'})

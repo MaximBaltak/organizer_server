@@ -75,6 +75,7 @@ class RequestTasks {
         try {
             await Task.updateOne({_id: taskId}, {
                 $set: {
+                    border:req.body.border,
                     check: req.body.check,
                     "state.color": req.body.color,
                     "state.text": req.body.text

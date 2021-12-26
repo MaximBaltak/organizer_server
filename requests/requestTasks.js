@@ -105,7 +105,7 @@ class RequestTasks {
                 return res.status(200).json({message: 'deleted all tasks'})
             } catch (e) {
                 console.log(e)
-                return res.status(4000).json({message: 'there is no task with such userId'})
+                return res.status(4000).json({message: 'there is no task with such userId',userId})
             }
         } else {
             try {

@@ -40,7 +40,7 @@ const dayFunction=(task) => {
         textState = 'В процессе'
         colorState = 'yellow'
     }
-        if (task.day!==null) {
+        if (task.day) {
             task.day.text = text
             task.day.color = color
             task.state.text = textState

@@ -37,8 +37,6 @@ class RequestTasks {
         }
         if (!req.body) {
             return res.status(400).json({message: 'no data available'})
-        }else {
-            return res.status(200).json({message: req.body})
         }
 
         try {

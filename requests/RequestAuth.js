@@ -8,7 +8,7 @@ class RequestAuth {
     async signUp(req, res) {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            res.status(400).json({message: 'data is not valid', errors:errors.errors})
+            res.status(400).json({message: 'Не валидные данные', errors:errors.errors})
         } else {
             const {username, password} = req.body
             let filterUsername = username.trim()
@@ -16,7 +16,7 @@ class RequestAuth {
             const hashPassword = bcrypt.hashSync(filterPassword, 4)
             const user = await User.findOne({username: filterUsername})
             if (user) {
-                return res.status(400).json({message: 'the user already exists'})
+                return res.status(400).json({message: 'Такой пользователь уже существует'})
             } else {
                 try {
                     const user = await new User({
@@ -33,7 +33,7 @@ class RequestAuth {
                         id: data[0]._id
                     })
                 } catch (e) {
-                    res.status(500).json({message: 'Error of server'})
+                    res.status(500).json({message: 'Ошибка сервера'})
                 }
             }
         }
@@ -43,7 +43,7 @@ class RequestAuth {
         const errors = validationResult(req)
         console.log(req.body.username)
         if (!errors.isEmpty()) {
-            res.status(400).json({message: 'data is not valid', errors:errors.errors})
+            res.status(400).json({message: 'Данные не валидные', errors:errors.errors})
         } else {
             const {username, password} = req.body
             let filterUsername = username.trim()
@@ -66,10 +66,10 @@ class RequestAuth {
                         id: findUser._id
                     })
                 } else {
-                    return res.status(400).json({message: 'user not found'})
+                    return res.status(400).json({message: 'Такого пользователя не существует'})
                 }
             } catch (e) {
-                res.status(500).json({message: 'error of server'})
+                res.status(500).json({message: 'Ошибка сервера'})
             }
         }
     }

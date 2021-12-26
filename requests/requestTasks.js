@@ -66,7 +66,9 @@ class RequestTasks {
             const tasks = await Task.find({userId})
             if (tasks.length > 0) {
                 Array.from(tasks).forEach(task => {
-                    dayFunction(task)
+                   if(!task.check){
+                       dayFunction(task)
+                   }
                 })
             }
             return res.status(200).json({tasks: tasks})

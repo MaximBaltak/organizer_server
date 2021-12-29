@@ -45,7 +45,7 @@ const dayFunction=(goal) => {
         goal.day.color = color
         goal.state.text = textState
         goal.state.color = colorState
-        goal.percentColor=border
+        goal.colorPercent=border
     }
 }
 

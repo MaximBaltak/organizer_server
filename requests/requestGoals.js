@@ -36,7 +36,7 @@ const dayFunction=(goal) => {
         textState = 'Просрочена'
         colorState = 'red'
     } else {
-        border = 'grey'
+        border = 'yellow'
         textState = 'В процессе'
         colorState = 'yellow'
     }
@@ -45,6 +45,7 @@ const dayFunction=(goal) => {
         goal.day.color = color
         goal.state.text = textState
         goal.state.color = colorState
+        goal.percentColor=border
     }
 }
 

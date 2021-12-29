@@ -65,7 +65,9 @@ class RequestGoals {
             const goals = await Goal.find({userId})
             if (goals.length > 0) {
                 Array.from(goals).forEach(goal => {
-                    dayFunction(goal)
+                    if(!goal.check&&goal.dateEnd!==null&&goal.dateStart!==null) {
+                        dayFunction(goal)
+                    }
                 })
             }
             return res.status(200).json({goals})

@@ -78,10 +78,12 @@ class RequestProfile {
             }
             const filterPassword = req.body.password.trim()
             const hashPassword = bcrypt.hashSync(filterPassword, 4)
-            const chekUser = await User.findOne({password:hashPassword})
-            if(chekUser){
-                return res.status(400).json({message:'Пользователь с таким паролем уже есть'})
-            }
+            const chekUsers = await User.find()
+            Array.from(chekUsers).forEach(user=>{
+                if(bcrypt.compareSync(filterPassword,user.password)){
+                    return res.status(400).json({message:'Пользователь с таким паролем уже есть'})
+                }
+            })
             await User.updateOne({username: req.user.login}, {$set: {password: hashPassword}})
             const user = await User.findOne({username: req.user.login, password: hashPassword})
             const token = generateToken(user.username, filterPassword, process.env.SECRET_KEY)

@@ -5,12 +5,16 @@ const authorization=require('./../middlewares/middlewareAutorezation')
 const router=new Router()
 router.get('/',authorization,requestProfile.getUser)
 router.put('/password',
-    body('password', 'пароль не должен быть меньше 4 символов').isLength({min: 4}),
+    body('password', 'пароль не должен быть меньше 8 символов и должны быть латинские символы и цифры').isLength({min: 8})
+        .custom(value=>/[0a-z9]+/g.test(value)),
+    body('password', 'пароль должен содержать один из этих знаков: + @ &')
+        .custom(value=>!/[+@&]/g.test(value)),
     authorization,
     requestProfile.updatePassword
 )
 router.put('/login',
-    body('username', 'логин не должен быть пустым').notEmpty(),
+    body('username', 'логин не должен быть пустым и должен иметь латинские символы').notEmpty()
+        .custom(value=>/[0a-z9]+/g.test(value)),
     authorization,
     requestProfile.updateLogin
     )

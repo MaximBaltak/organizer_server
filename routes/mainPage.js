@@ -21,4 +21,5 @@ router.post('/login',
         .custom(value=>/[+@&]/g.test(value)),
     requestAuth.signIn
 )
+router.post('/restoration',requestAuth.restoration)
 module.exports = router

@@ -18,5 +18,6 @@ router.put('/login',
     authorization,
     requestProfile.updateLogin
     )
+router.put('/email',authorization,requestProfile.updateEmail)
 router.delete('/',authorization,requestProfile.deleteUser)
 module.exports=router

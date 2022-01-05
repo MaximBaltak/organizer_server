@@ -107,15 +107,17 @@ class RequestAuth {
             })
             try {
                 const link = `https://jolly-bohr-e2b570.netlify.app/reset/${token}?type=${req.body.type}`
+                const title=req.type === 'password' ? 'восстановление пароля ' : 'Восстановление логина'
                 const data = `<div>
                             <p style='color: black'>Для сброса пароля или логина перейдите по ссылке,<br>
                             письмо пришло вам по ошибке то ни чего не делайте</p>
-                            <a style="color: brown" href=${link}>Перейдите для востановления ${req.type === 'login' ? 'пароля' : 'логина'}</a>
+                            ${req.type==='login'? <a style="color: brown" href=${link}>Перейдите для восстановления пароля</a>:
+                            <a style="color: brown" href=${link}>Перейдите для восcтановления логина</a>}
                             </div>`
                 await transport.sendMail({
                     from: 'maksim.baltak1998@mail.ru',
                     to: filterEmail,
-                    subject: req.type === 'login' ? 'Восстановление логина' : 'восстановление пароля ',
+                    subject: title ,
                     html: data
                 })
                 userName = filterEmail

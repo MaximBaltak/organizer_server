@@ -111,7 +111,7 @@ class RequestAuth {
                 const data = `<div>
                             <p style='color: black'>Для сброса пароля или логина перейдите по ссылке на страницу сброса </p>
                             <p style='color: black'>Это письмо было сформировано сервером, не отвечайте на него</p>
-                             <a style="color: brown" href=${link}>Перейдите для восстановления пароля</a>
+                             <a style="color: brown" href=${link}>Перейдите для восстановления пароля или логина</a>
                             </div>`
                 await transport.sendMail({
                     from: 'maksim.baltak1998@mail.ru',

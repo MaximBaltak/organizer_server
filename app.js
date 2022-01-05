@@ -8,7 +8,6 @@ const CORS=require('./middlewares/middlewareCORS')
 require('dotenv').config()
 const app = express()
 const port = process.env.PORT || 3000
-
 app.use(express.json())
 app.use(CORS)
 app.use('/auth', authRouter)
@@ -20,7 +19,6 @@ app.use('/profile', profileRouter)
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to server of organizer:)</h1>')
 })
-
 const start = async () => {
     try {
         await mongoose.connect(process.env.DB_CONNECT)

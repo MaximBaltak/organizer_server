@@ -9,6 +9,15 @@ const User = new Schema({
         type: String,
         required: true,
     },
+    email:{
+        type:String,
+        unique:true,
+        required:true
+    },
+    confirmEmail:{
+        type:Boolean,
+        required:true
+    },
     created:{
         type:Date,
         required:true

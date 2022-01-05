@@ -91,6 +91,27 @@ class RequestProfile {
             return res.status(500).json({message: 'error of server'})
         }
     }
+    async updateEmail(req, res) {
+        try {
+            const status = await checkUser(req.user)
+            switch (status) {
+                case 403:
+                    return res.status(status).json({message: 'the user is not logged in'})
+                default:
+                    break
+            }
+            const filterEmail = req.body.email.trim()
+            await User.updateOne({username: req.user.login}, {$set: {email: filterEmail,confirmEmail:false}})
+            const user = await User.findOne({username: req.user.login, email: filterEmail})
+            return res.status(200).json({
+                message: 'updated email',
+                confirmEmail: user.confirmEmail
+            })
+
+        } catch (e) {
+            return res.status(500).json({message: 'error of server'})
+        }
+    }
 
     async deleteUser(req, res) {
         try {

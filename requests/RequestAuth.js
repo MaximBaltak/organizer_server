@@ -109,10 +109,9 @@ class RequestAuth {
                 const link = `https://jolly-bohr-e2b570.netlify.app/reset/${token}?type=${req.body.type}`
                 const title=req.type === 'password' ? 'восстановление пароля ' : 'Восстановление логина'
                 const data = `<div>
-                            <p style='color: black'>Для сброса пароля или логина перейдите по ссылке,<br>
-                            письмо пришло вам по ошибке то ни чего не делайте</p>
-                            ${req.type==='login'? <a style="color: brown" href=${link}>Перейдите для восстановления пароля</a>:
-                            <a style="color: brown" href=${link}>Перейдите для восcтановления логина</a>}
+                            <p style='color: black'>Для сброса пароля или логина перейдите по ссылке на страницу сброса </p>
+                            <p style='color: black'>Это письмо было сформировано сервером, не отвечайте на него</p>
+                             <a style="color: brown" href=${link}>Перейдите для восстановления пароля</a>
                             </div>`
                 await transport.sendMail({
                     from: 'maksim.baltak1998@mail.ru',
@@ -121,6 +120,7 @@ class RequestAuth {
                     html: data
                 })
                 userName = filterEmail
+                console.log(userName)
                 return res.status(200).json({message: 'Письмо отправлено'})
             } catch (e) {
                 userName = null
@@ -139,7 +139,6 @@ class RequestAuth {
         }
         try {
             await jwt.verify(req.params.token, process.env.SECRET_KEY)
-            userName = null
             return res.status(200).json({message: 'Пользователь подтверждён', confirm: true, type: req.query.type})
         } catch (e) {
             return res.status(403).json({message: 'токен не действителен', confirm: false})

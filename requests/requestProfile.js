@@ -22,7 +22,9 @@ class RequestProfile {
                 console.log(83)
                 return res.status(200).json({
                     username: req.user.login,
-                    password: req.user.password
+                    password: req.user.password,
+                    email: user.email,
+                    confirmEmail: user.confirmEmail,
                 })
             }
 

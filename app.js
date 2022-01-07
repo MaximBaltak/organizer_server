@@ -4,6 +4,7 @@ const authRouter = require('./routes/mainPage')
 const tasksRouter = require('./routes/tasksPage')
 const goalsRouter = require('./routes/goalsPage')
 const profileRouter=require('./routes/profilePage')
+const confirmRouter=require('./routes/confirmPage')
 const CORS=require('./middlewares/middlewareCORS')
 require('dotenv').config()
 const app = express()
@@ -14,6 +15,7 @@ app.use('/auth', authRouter)
 app.use('/tasks', tasksRouter)
 app.use('/goals', goalsRouter)
 app.use('/profile', profileRouter)
+app.use('/confirm', confirmRouter)
 
 
 app.get('/', (req, res) => {

@@ -6,6 +6,7 @@ const goalsRouter = require('./routes/goalsPage')
 const profileRouter=require('./routes/profilePage')
 const confirmRouter=require('./routes/confirmPage')
 const CORS=require('./middlewares/middlewareCORS')
+const sending=require('./operationsServer/sendingMessages')
 require('dotenv').config()
 const app = express()
 const port = process.env.PORT || 3000
@@ -16,6 +17,7 @@ app.use('/tasks', tasksRouter)
 app.use('/goals', goalsRouter)
 app.use('/profile', profileRouter)
 app.use('/confirm', confirmRouter)
+setInterval(()=>sending(),1000*60*60*24)
 
 
 app.get('/', (req, res) => {

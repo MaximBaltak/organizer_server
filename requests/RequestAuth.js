@@ -95,6 +95,10 @@ class RequestAuth {
             if (!user) {
                 return res.status(500).json({message: 'Пользователя с такой почтой не существует'})
             }
+        if(!user.confirmEmail) {
+            return res.status(400).json({message: 'Почта не подтверждена'})
+        }
+
             const token = generateToken('hh', 123, process.env.SECRET_KEY)
             const transport = nodemailer.createTransport({
                 host: 'smtp.mail.ru',

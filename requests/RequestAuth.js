@@ -95,23 +95,23 @@ class RequestAuth {
             if (!user) {
                 return res.status(500).json({message: 'Пользователя с такой почтой не существует'})
             }
-        if(!user.confirmEmail) {
-            return res.status(400).json({message: 'Почта не подтверждена'})
-        }
+            if (!user.confirmEmail) {
+                return res.status(400).json({message: 'Почта не подтверждена'})
+            }
 
             const token = generateToken('hh', 123, process.env.SECRET_KEY)
             const transport = nodemailer.createTransport({
-                host: 'smtp.mail.ru',
-                port: 465,
-                secure: true,
+                host: process.env.HOST_SMTP,
+                port: process.env.PORT_SMTP,
+                secure: process.env.SECURE_SMTP,
                 auth: {
-                    user: 'maksim.baltak1998@mail.ru',
-                    pass: 'fxWVTdMTU5wG1qaVsuh8'
+                    user: process.env.LOGIN_SMTP,
+                    pass: process.env.PASSWORD_SMTP
                 }
             })
             try {
-                const link = `https://jolly-bohr-e2b570.netlify.app/reset/${token}?type=${req.body.type}`
-                const title=req.type === 'password' ? 'восстановление пароля ' : 'Восстановление логина'
+                const link = `${process.env.LINK_APP}reset/${token}?type=${req.body.type}`
+                const title = req.type === 'password' ? 'восстановление пароля ' : 'Восстановление логина'
                 const data = `<div>
                             <p style='color: black'>Для сброса пароля или логина перейдите по ссылке на страницу сброса </p>
                             <p style='color: black'>Это письмо было сформировано сервером, не отвечайте на него</p>
@@ -120,7 +120,7 @@ class RequestAuth {
                 await transport.sendMail({
                     from: 'maksim.baltak1998@mail.ru',
                     to: filterEmail,
-                    subject: title ,
+                    subject: title,
                     html: data
                 })
                 userName = filterEmail

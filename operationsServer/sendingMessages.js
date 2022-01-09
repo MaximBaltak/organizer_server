@@ -3,15 +3,15 @@ const User = require('./../database/schemas/User')
 const Task = require('./../database/schemas/Task')
 const Goal = require('./../database/schemas/Goal')
 const transport = nodemailer.createTransport({
-    host: 'smtp.mail.ru',
-    port: 465,
-    secure: true,
+    host: process.env.HOST_SMTP,
+    port: process.env.PORT_SMTP,
+    secure: process.env.SECURE_SMTP,
     auth: {
-        user: 'maksim.baltak1998@mail.ru',
-        pass: 'fxWVTdMTU5wG1qaVsuh8'
+        user: process.env.LOGIN_SMTP,
+        pass: process.env.PASSWORD_SMTP
     }
 })
-const link = 'https://jolly-bohr-e2b570.netlify.app/'
+const link = process.env.LINK_APP
 const timer = (task) => {
     if (task.day === null) {
         return null
@@ -29,43 +29,43 @@ const timer = (task) => {
 }
 const send = async (massages) => {
 
-    for (let[key,value]of massages){
-        let title='Требуют внимание'
-        let countGoals=0
-        let countTasks=0
-        let goalsOverdue=0
-        let tasksOverdue=0
-        let goalsNotOverdue=0
-        let tasksNotOverdue=0
-        if(value?.tasks?.length>0){
-            title +=value?.tasks?.length===1?` ${value.tasks.length} задача,`:value.tasks.length>1&&value.tasks.length<5?` ${value.tasks.length} задачи,`:` ${value.tasks.length} задач,`
-            countTasks=value.tasks.length
-            value.tasks.forEach(task=>{
-                if(task.day<0){
+    for (let [key, value] of massages) {
+        let title = 'Требуют внимание'
+        let countGoals = 0
+        let countTasks = 0
+        let goalsOverdue = 0
+        let tasksOverdue = 0
+        let goalsNotOverdue = 0
+        let tasksNotOverdue = 0
+        if (value?.tasks?.length > 0) {
+            title += value?.tasks?.length === 1 ? ` ${value.tasks.length} задача,` : value.tasks.length > 1 && value.tasks.length < 5 ? ` ${value.tasks.length} задачи,` : ` ${value.tasks.length} задач,`
+            countTasks = value.tasks.length
+            value.tasks.forEach(task => {
+                if (task.day < 0) {
                     tasksOverdue++
-                }else {
+                } else {
                     tasksNotOverdue++
                 }
             })
         }
-        if(value?.goals?.length>0){
-            title +=value?.goals?.length===1?` ${value.goals.length} цель,`:value.goals.length>1&&value.goals.length<5?` ${value.goals.length} цели,`:` ${value.goals.length} целей,`
-            countGoals=value.goals.length
-            value.goals.forEach(goal=>{
-                if(goal.day<0){
+        if (value?.goals?.length > 0) {
+            title += value?.goals?.length === 1 ? ` ${value.goals.length} цель,` : value.goals.length > 1 && value.goals.length < 5 ? ` ${value.goals.length} цели,` : ` ${value.goals.length} целей,`
+            countGoals = value.goals.length
+            value.goals.forEach(goal => {
+                if (goal.day < 0) {
                     goalsOverdue++
-                }else {
+                } else {
                     goalsNotOverdue++
                 }
             })
         }
-        let textTask=''
-        let textGoals=''
-        if(countTasks){
-            textTask=`<p>У вас просрочено: ${tasksOverdue} задач, истекает время у ${tasksNotOverdue} задач</p>`
+        let textTask = ''
+        let textGoals = ''
+        if (countTasks) {
+            textTask = `<p>У вас просрочено: ${tasksOverdue} задач, истекает время у ${tasksNotOverdue} задач</p>`
         }
-        if(countGoals){
-            textGoals=`<p>У вас просрочено: ${goalsOverdue} целей, истекает время у ${goalsNotOverdue} целей</p>`
+        if (countGoals) {
+            textGoals = `<p>У вас просрочено: ${goalsOverdue} целей, истекает время у ${goalsNotOverdue} целей</p>`
         }
 
         await transport.sendMail({
@@ -102,7 +102,7 @@ const sending = async () => {
                             value.tasks = [{day}]
                         }
                     } else {
-                        messages.set(user.email, {...value,tasks: [{day}]})
+                        messages.set(user.email, {...value, tasks: [{day}]})
                     }
                 })
             }
@@ -128,7 +128,7 @@ const sending = async () => {
                             value.goals = [{day}]
                         }
                     } else {
-                        messages.set(user.email, {...value,goals: [{day}]})
+                        messages.set(user.email, {...value, goals: [{day}]})
                     }
                 })
             }

@@ -1,6 +1,6 @@
 const Goal = require('./../database/schemas/Goal')
 const checkUser = require('./../middlewares/checkUser')
-const dayFunction=(goal) => {
+const dayFunction = (goal) => {
     let date1 = new Date(goal.dateStart).getTime()
     let date2 = new Date(goal.dateEnd).getTime()
     let t = date2 - date1
@@ -45,7 +45,7 @@ const dayFunction=(goal) => {
         goal.day.color = color
         goal.state.text = textState
         goal.state.color = colorState
-        goal.colorPercent=border
+        goal.colorPercent = border
     }
 }
 
@@ -66,7 +66,7 @@ class RequestGoals {
             const goals = await Goal.find({userId})
             if (goals.length > 0) {
                 Array.from(goals).forEach(goal => {
-                    if(!goal.check&&goal.dateEnd!==null&&goal.dateStart!==null&&goal.percent<100) {
+                    if (!goal.check && goal.dateEnd !== null && goal.dateStart !== null && goal.percent < 100) {
                         dayFunction(goal)
                     }
                 })

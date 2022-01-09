@@ -48,8 +48,8 @@ class RequestProfile {
             }
             const filterLogin = req.body.username.trim()
             const chekUser = await User.findOne({username: filterLogin})
-            if(chekUser){
-                return res.status(400).json({message:'Пользователь с таким логином уже есть'})
+            if (chekUser) {
+                return res.status(400).json({message: 'Пользователь с таким логином уже есть'})
             }
             await User.updateOne({username: req.user.login}, {$set: {username: filterLogin}})
             const user = await User.findOne({username: filterLogin})
@@ -93,6 +93,7 @@ class RequestProfile {
             return res.status(500).json({message: 'error of server'})
         }
     }
+
     async updateEmail(req, res) {
         try {
             const status = await checkUser(req.user)
@@ -103,7 +104,7 @@ class RequestProfile {
                     break
             }
             const filterEmail = req.body.email.trim()
-            await User.updateOne({username: req.user.login}, {$set: {email: filterEmail,confirmEmail:false}})
+            await User.updateOne({username: req.user.login}, {$set: {email: filterEmail, confirmEmail: false}})
             const user = await User.findOne({username: req.user.login, email: filterEmail})
             return res.status(200).json({
                 message: 'updated email',

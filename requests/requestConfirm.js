@@ -42,16 +42,16 @@ class requestConfirm{
             const user=await User.findOne({username:req.user.login})
             try {
                 const transport=nodemailer.createTransport({
-                    host: 'smtp.mail.ru',
-                    port: 465,
-                    secure: true,
+                    host: process.env.HOST_SMTP,
+                    port: process.env.PORT_SMTP,
+                    secure: process.env.SECURE_SMTP,
                     auth: {
-                        user: 'maksim.baltak1998@mail.ru',
-                        pass: 'fxWVTdMTU5wG1qaVsuh8'
+                        user: process.env.LOGIN_SMTP,
+                        pass: process.env.PASSWORD_SMTP
                     }
                 })
                 const token=req.headers.authorization.split(' ')[1]
-                const link=`https://jolly-bohr-e2b570.netlify.app/confirm/${token}`
+                const link=`${process.env.LINK_APP}confirm/${token}`
                 const data=`<p>Для подтверждение почты перейдите по ссылке</p>
                                 <p>Письмо сформировано сервером, поэтому не отвечайте на него</p>
                                  <a href=${link}>Подтвердите почту</a>`

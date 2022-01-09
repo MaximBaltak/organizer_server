@@ -1,6 +1,6 @@
 const Task = require('./../database/schemas/Task')
 const checkUser = require('./../middlewares/checkUser')
-const dayFunction=(task) => {
+const dayFunction = (task) => {
     let date1 = new Date(task.dateStart).getTime()
     let date2 = new Date(task.dateEnd).getTime()
     let t = date2 - date1
@@ -40,13 +40,13 @@ const dayFunction=(task) => {
         textState = 'В процессе'
         colorState = 'yellow'
     }
-        if (task.day) {
-            task.day.text = text
-            task.day.color = color
-            task.state.text = textState
-            task.state.color = colorState
-            task.border = border
-        }
+    if (task.day) {
+        task.day.text = text
+        task.day.color = color
+        task.state.text = textState
+        task.state.color = colorState
+        task.border = border
+    }
 }
 
 class RequestTasks {
@@ -66,9 +66,9 @@ class RequestTasks {
             const tasks = await Task.find({userId})
             if (tasks.length > 0) {
                 Array.from(tasks).forEach(task => {
-                   if(!task.check&&task.dateEnd!==null&&task.dateStart!==null){
-                       dayFunction(task)
-                   }
+                    if (!task.check && task.dateEnd !== null && task.dateStart !== null) {
+                        dayFunction(task)
+                    }
                 })
             }
             return res.status(200).json({tasks: tasks})
@@ -128,7 +128,7 @@ class RequestTasks {
                 $set: {
                     "state.color": req.body.color,
                     "state.text": req.body.text,
-                    border:req.body.border,
+                    border: req.body.border,
                     check: req.body.check,
                 }
             })
@@ -156,7 +156,7 @@ class RequestTasks {
                 return res.status(200).json({message: 'deleted all tasks'})
             } catch (e) {
                 console.log(e)
-                return res.status(400).json({message: 'there is no task with such userId',userId:req.query})
+                return res.status(400).json({message: 'there is no task with such userId', userId: req.query})
             }
         } else {
             try {
@@ -164,7 +164,7 @@ class RequestTasks {
                 return res.status(200).json({message: 'deleted task'})
             } catch (e) {
                 console.log(e)
-                return res.status(400).json({message: 'there is no task with such userId or taskId',userId:req.query})
+                return res.status(400).json({message: 'there is no task with such userId or taskId', userId: req.query})
             }
         }
 

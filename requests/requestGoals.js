@@ -1,8 +1,8 @@
 const Goal = require('./../database/schemas/Goal')
 const checkUser = require('./../middlewares/checkUser')
 const dayFunction = (goal) => {
-    let date1 = new Date(goal.dateEnd).getTime()
-    let date2 = new Date().getTime()
+    let date1 = new Date().getTime()
+    let date2 = new Date(goal.dateEnd).getTime()
     let t = date2 - date1
     let day = Math.floor(t / (1000 * 60 * 60 * 24))
     let color

@@ -18,7 +18,7 @@ app.use('/goals', goalsRouter)
 app.use('/profile', profileRouter)
 app.use('/confirm', confirmRouter)
 setInterval(()=>{
-    if(new Date().getMinutes()===38){
+    if(new Date().getMinutes()===0 && new Date().getHours()===0){
         sending().catch(()=>console.log('Не получилось сделать рассылку'))
     }
 },1000*60)

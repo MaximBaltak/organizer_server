@@ -21,7 +21,7 @@ setInterval(()=>{
     if(new Date().getMinutes()===38){
         sending().catch(()=>console.log('Не получилось сделать рассылку'))
     }
-},5000)
+},1000*60)
 
 
 app.get('/', (req, res) => {

@@ -17,7 +17,11 @@ app.use('/tasks', tasksRouter)
 app.use('/goals', goalsRouter)
 app.use('/profile', profileRouter)
 app.use('/confirm', confirmRouter)
-setInterval(()=>sending(),1000*60*60*24)
+setInterval(()=>{
+    if(new Date().getMinutes()===38){
+        sending().catch(()=>console.log('Не получилось сделать рассылку'))
+    }
+},5000)
 
 
 app.get('/', (req, res) => {

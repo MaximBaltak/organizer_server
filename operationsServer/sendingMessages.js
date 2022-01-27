@@ -16,8 +16,8 @@ const timer = (task) => {
     if (task.day === null) {
         return null
     }
-    let date1 = new Date(task.dateStart).getTime()
-    let date2 = new Date(task.dateEnd).getTime()
+    let date1 = new Date(task.dateEnd).getTime()
+    let date2 = new Date().getTime()
     let t = date2 - date1
     let day = Math.floor(t / (1000 * 60 * 60 * 24))
     if (day >= 2) {
